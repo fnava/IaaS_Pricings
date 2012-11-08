@@ -32,9 +32,7 @@ EC2_INSTANCE_TYPES = [
 	"c1.medium",
 	"c1.xlarge",
 	"cc1.4xlarge",
-	"cc1.8xlarge",
-	"cc2.4xlarge", # this is the official api-name, but json formatted pricings mentions cc1.4xlarge instead!
-        "cc2.8xlarge", # this is the official api-name, but json formatted pricings mentions cc1.8xlarge instead!
+	"cc1.8xlarge", # the official api-name is cc2.8xlarge even if it belongs to clusterComputeI family
         "cg1.4xlarge",
         "hi1.4xlarge"
 ]
@@ -104,7 +102,7 @@ INSTANCE_TYPE_MAPPING = {
 	"secgenstdODI" : "m3",
 	"hiCPUODI" : "c1",
 	"clusterComputeI" : "cc1",
-	"clusterGPUI" : "cc2",
+	"clusterGPUI" : "cg1",
 	"hiIoODI" : "hi1",
 
 	# Reserved Instance Types
@@ -113,7 +111,7 @@ INSTANCE_TYPE_MAPPING = {
 	"hiMemResI" : "m2",
 	"hiCPUResI" : "c1",
 	"clusterCompResI" : "cc1",
-	"clusterGPUResI" : "cc2",
+	"clusterGPUResI" : "cg1",
 	"hiIoResI" : "hi1"
 }
 
@@ -126,6 +124,11 @@ INSTANCE_SIZE_MAPPING = {
 	"xxl" : "2xlarge",
 	"xxxxl" : "4xlarge",
 	"xxxxxxxxl" : "8xlarge"
+}
+
+# while published JSON refers to clusterComputeI xxxxxxxxl instance the api-name is cc2.8xlarge
+INSTANCE_REMAPPING = {
+	"cc1.8xlarge":"cc2.8xlarge"
 }
 
 def _load_data(url):
@@ -266,6 +269,9 @@ def get_ec2_ondemand_instances_prices(filter_region=None, filter_instance_type=N
 				if "instanceTypes" in r:
 					for it in r["instanceTypes"]:
 						instance_type = INSTANCE_TYPE_MAPPING[it["type"]]
+						# nasty remapping:
+						if instance_type in INSTANCE_REMAPPING:
+							instance_type = INSTANCE_REMAPPING[instance_type]
 						if "sizes" in it:
 							for s in it["sizes"]:
 								instance_size = INSTANCE_SIZE_MAPPING[s["size"]]

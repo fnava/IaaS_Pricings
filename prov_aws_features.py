@@ -3,7 +3,7 @@ import locale
 locale.setlocale(locale.LC_ALL,"es_ES")
 
 features = {}
-reader = csv.DictReader(open('provs/amazon/vmfeatures.csv'), delimiter=';')
+reader = csv.DictReader(open('provs/amazon/features.csv'), delimiter=';')
 keyword_key="Keyword"
 mem_key = "Mem (GB)"
 cpu_key = "CPU (GHz)"
@@ -15,4 +15,4 @@ for row in reader:
         features[row[keyword_key]][k] = locale.atof(row[k])
     for k in [iop_key, ]:
         features[row[keyword_key]][k] = row[k].strip()
-print features
+#print features

@@ -168,8 +168,7 @@ if __name__ == "__main__":
 	elif args.format == "awsgraph":
 		from prov_aws_features import *
 		locale.setlocale(locale.LC_ALL,"C")
-		print """
-		<!--
+		print """<!--
 You are free to copy and use this sample in accordance with the terms of the
 Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 -->
@@ -236,6 +235,4 @@ google.setOnLoadCallback(drawVisualization);
 <div id="visualization" style="width: 800px; height: 600px;"></div>
 </body>
 </html>
-​
-'{"xAxisOption":"4","yZoomedDataMin":0.613,"yZoomedDataMax":68.4,"iconType":"BUBBLE","orderedByY":false,"showTrails":true,"xZoomedDataMin":1.2,"yLambda":0,"uniColorForNonSelected":false,"playDuration":15000,"orderedByX":false,"xZoomedIn":false,"yZoomedIn":false,"nonSelectedAlpha":0.4,"sizeOption":"5","time":"2012-11-01","xLambda":0,"colorOption":"7","duration":{"timeUnit":"D","multiplier":1},"xZoomedDataMax":105.6,"iconKeySettings":[],"yAxisOption":"3","dimensions":{"iconDimensions":["dim0"]}}'
 """
