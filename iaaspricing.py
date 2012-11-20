@@ -279,16 +279,11 @@ google.setOnLoadCallback(drawVisualization);
 				"smps":["GB", "GHz", "price"],
 				"desc":["intensity",],
 				"data":[]
-				},
+			},
 			"z":{
 				"Prov":[],
 				"Prod":[]	
 				},
-			"graphType": "Scatter3D",
-			"xAxis": ["GB"],
-			"yAxis": ["GHz"],
-			"zAxis": ["price"],
-			"scatterType": "false"
 		}
 		cxdate = "20121101"
 		for ds,data in dataset.items():
@@ -314,7 +309,12 @@ google.setOnLoadCallback(drawVisualization);
 								cx["z"]["Prod"].append(product)
 								cx["z"]["Prov"].append(provider)
 		print json.dumps(cx, sort_keys=True, indent=4),
-	print """) }
+	print """,{"graphType": "Scatter3D",
+				"xAxis": ["GB"],
+				"yAxis": ["GHz"],
+				"zAxis": ["price"],
+				"scatterType": false
+		}) }
 </script>
 </head>
 

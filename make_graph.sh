@@ -1,6 +1,5 @@
 #!/bin/bash
-
- python iaaspricing.py \
+python iaaspricing.py \
     --filter-provider Amazon \
     --filter-reserve ondemand \
     --filter-os linux \
