@@ -54,7 +54,9 @@ JSON_NAME_TO_EC2_REGIONS_API = {
 	"ap-southeast-1" : "ap-southeast-1",
 	"apac-tokyo" : "ap-northeast-1", 
 	"ap-northeast-1" : "ap-northeast-1",
-	"sa-east-1" : "sa-east-1"
+	"sa-east-1" : "sa-east-1",
+	"ap-southeast-2" : "ap-southeast-2",        
+	"apac-syd" : "ap-southeast-2",        
 }
 
 EC2_REGIONS_API_TO_JSON_NAME = {
@@ -63,7 +65,8 @@ EC2_REGIONS_API_TO_JSON_NAME = {
 	"us-west-2" : "us-west-2", 
 	"eu-west-1" : "eu-ireland", 
 	"ap-southeast-1" : "apac-sin", 
-	"ap-northeast-1" : "apac-tokyo", 
+	"ap-northeast-1" : "apac-tokyo",
+        "ap-southeast-2" : "apac-syd",
 	"sa-east-1" : "sa-east-1"	
 }
 
