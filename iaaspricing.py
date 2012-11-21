@@ -309,16 +309,22 @@ google.setOnLoadCallback(drawVisualization);
 								cx["z"]["Prod"].append(product)
 								cx["z"]["Prov"].append(provider)
 		print json.dumps(cx, sort_keys=True, indent=4),
-	print """,{"graphType": "Scatter3D",
-				"xAxis": ["GB"],
-				"yAxis": ["GHz"],
-				"zAxis": ["price"],
-				"scatterType": false
-		}) }
+	print """,
+        {
+        "graphType": "Scatter3D",
+        "xAxis": ["GB"],
+	"yAxis": ["price"],
+	"zAxis": ["GHz"],
+        "xAxisTransform": "log10",
+        "zAxisTransform": "log10",
+        "scatterType": false
+	}
+        )
+    }
 </script>
 </head>
 
-<body style="font-family: Arial;border: 0 none;">
+<body onload="showDemo();" style="cursor: default;">
 <div>
 <canvas id="canvas" width="800" height="600"></canvas>
 </div>
