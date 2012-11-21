@@ -8,7 +8,7 @@ DATASETS = [
 
 def get_pricing(dataset, filter_provider):
     for ds in DATASETS:
-        if filter_provider is None or filter_provider == dobj[ds].provider:
+        if filter_provider is None or dobj[ds].provider in filter_provider:
             dataset[ds] = dobj[ds].getdata()
 	    
 class pricingData:

@@ -71,6 +71,6 @@ def get_pricing(dataset, filter_region=None, filter_instance_type=None, filter_o
 
     #print DATASETS
     for ds in DATASETS:
-        if filter_provider is None or filter_provider == "Amazon":
+        if filter_provider is None or "Amazon" in filter_provider:
             dataset[ds] = dobj[ds].getdata()
             #print dataset[ds]

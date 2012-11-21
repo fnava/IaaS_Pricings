@@ -321,7 +321,7 @@ def get_ec2_ondemand_instances_prices(filter_region=None, filter_instance_type=N
 	return None
     
 def get_pricing(dataset, filter_region=None, filter_instance_type=None, filter_os_type=None, filter_provider=None, filter_reserve=None):
-    if filter_provider is None or filter_provider == "Amazon":
+    if filter_provider is None or "Amazon" in filter_provider:
 	if filter_reserve is None or filter_reserve == "ondemand": 
 		dataset["amazon_ec2_ondemand"] = None
 		dataset["amazon_ec2_ondemand"] = get_ec2_ondemand_instances_prices(filter_region, filter_instance_type, filter_os_type)

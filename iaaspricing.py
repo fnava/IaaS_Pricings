@@ -77,7 +77,7 @@ if __name__ == "__main__":
 	parser.add_argument("--filter-type", "-ft", help="Filter results to a specific instance type", choices=EC2_INSTANCE_TYPES, default=None)
 	parser.add_argument("--filter-os-type", "-fo", help="Filter results to a specific os type", choices=EC2_OS_TYPES, default=None)
 	parser.add_argument("--filter-reserve", "-fv", help="Filter results to a specific reservation", choices=RESERVATION, default=None)
-	parser.add_argument("--filter-provider", "-fp", help="Filter results to a specific provider", choices=PROVIDERS, default=None)
+	parser.add_argument("--filter-provider", "-fp", nargs="+", help="Filter results to a specific provider", choices=PROVIDERS, default=None)
 	parser.add_argument("--format", "-f", choices=["json", "table", "csv", "awsgraph", "scatter3d"], help="Output format", default="table")
 
 	args = parser.parse_args()
