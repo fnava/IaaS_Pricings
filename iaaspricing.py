@@ -40,12 +40,15 @@ DATASETS = prov_all_pricedb.DATASETS[:]
 #DATASETS+= prov_aws_pricedb.DATASETS[:]
 DATASETS+= prov_aws_historical.DATASETS[:]
 
+REGIONS = prov_all_pricedb.REGIONS[:]
+REGIONS+= EC2_REGIONS[:]
+
 PROVIDERS = [
 	"Amazon",
 	"IBM",
 	"Google",
 	"Gigas",
-	"Azure"
+	"Microsoft"
 ]
 
 RESERVATION = [
@@ -73,7 +76,7 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(add_help=True, description="Print out the current prices of EC2 instances")
 	parser.add_argument("--filter-currency", "-fc", help="Filter results to a specific currency", choices=CURRENCIES, default="EUR")
-	parser.add_argument("--filter-region", "-fr", help="Filter results to a specific region", choices=EC2_REGIONS, default=None)
+	parser.add_argument("--filter-region", "-fr", nargs="+", help="Filter results to a specific region", choices=REGIONS, default=None)
 	parser.add_argument("--filter-type", "-ft", help="Filter results to a specific instance type", choices=EC2_INSTANCE_TYPES, default=None)
 	parser.add_argument("--filter-os-type", "-fo", help="Filter results to a specific os type", choices=EC2_OS_TYPES, default=None)
 	parser.add_argument("--filter-reserve", "-fv", help="Filter results to a specific reservation", choices=RESERVATION, default=None)
@@ -271,18 +274,21 @@ google.setOnLoadCallback(drawVisualization);
       var showDemo = function () {
         new CanvasXpress("canvas", 
 """,
-	#Here code to generate canvasxpress scatter plot
+	# Generation of canvasxpress scatter3d plot data and config, see:
+	# http://www.canvasxpress.org/documentation.html
+	# http://www.canvasxpress.org/scatter3d.html
+	# Config samples taken from:
+	# http://mauryacravings.com/labs/java%20controls/graphs&charts/graph_5/canvasxpress/scatter3d.html
 		cx = {
-			"x":"",
 			"y":{
 				"vars":[],
-				"smps":["GB", "GHz", "price"],
+				"smps":["Mem (GB)", "CPU (GHz)", "Storage (100xGB)", "Price"],
 				"desc":["intensity",],
 				"data":[]
 			},
 			"z":{
-				"Prov":[],
-				"Prod":[]	
+				"Provider":[],
+				"Product":[]	
 				},
 		}
 		for ds,data in dataset.items():
@@ -294,28 +300,30 @@ google.setOnLoadCallback(drawVisualization);
 				for r in data["regions"]:
 					region_name = r["region"]
 					for it in r["instanceTypes"]:
-						for term in it["prices"]:
-							hourly = it["prices"][term]["hourly"]
-							upfront = it["prices"][term]["upfront"]
-							if hourly is not None or upfront is not None:							
-								datal = [
-									features[it["type"]][mem_key],
-									features[it["type"]][cpu_key],
-									hourly
-									]
-								cx["y"]["data"].append(datal)
-								cx["y"]["vars"].append(it["type"])
-								cx["z"]["Prod"].append(product)
-								cx["z"]["Prov"].append(provider)
+						if region_name in args.filter_region and it["os"] == args.filter_os_type:
+							for term in it["prices"]:
+								hourly = it["prices"][term]["hourly"]
+								upfront = it["prices"][term]["upfront"]
+								if hourly is not None or upfront is not None:							
+									datal = [
+										features[it["type"]][mem_key],
+										features[it["type"]][cpu_key],
+										features[it["type"]][sto_key]/100,
+										hourly
+										]
+									cx["y"]["data"].append(datal)
+									cx["y"]["vars"].append(it["type"])
+									cx["z"]["Product"].append(product)
+									cx["z"]["Provider"].append(provider)
 		print json.dumps(cx, sort_keys=True, indent=4),
 	print """,
         {
         "graphType": "Scatter3D",
-        "xAxis": ["GB"],
-	"yAxis": ["price"],
-	"zAxis": ["GHz"],
-        "xAxisTransform": "log10",
-        "zAxisTransform": "log10",
+        "xAxis": ["Mem (GB)"],
+	"yAxis": ["Price"],
+	"zAxis": ["CPU (GHz)"],
+	"colorBy" : "Provider",
+        "transformType": "log2",
         "scatterType": false
 	}
         )

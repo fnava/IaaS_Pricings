@@ -6,6 +6,12 @@ DATASETS = [
 	"gigas",
 	]
 
+REGIONS = [
+	"google-us",
+	"ms-preview",
+	"ms-ga"
+]
+
 def get_pricing(dataset, filter_provider):
     for ds in DATASETS:
         if filter_provider is None or dobj[ds].provider in filter_provider:

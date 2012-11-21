@@ -62,7 +62,7 @@ def get_pricing(dataset, filter_region=None, filter_instance_type=None, filter_o
             DATASETS.append(row[date_key])
         for loc in locations_keys:
             #print row
-            if filter_region is None or loc == filter_region:
+            if filter_region is None or loc in filter_region:
                 if filter_instance_type is None or filter_instance_type == row[keyword_key]:
                     if filter_os_type is None or filter_os_type == row["OS"]:
                         #print row[date_key]
