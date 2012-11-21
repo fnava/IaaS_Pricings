@@ -285,10 +285,9 @@ google.setOnLoadCallback(drawVisualization);
 				"Prod":[]	
 				},
 		}
-		cxdate = "20121101"
 		for ds,data in dataset.items():
 			date = data["config"]["date"]	
-			if date == cxdate:
+			if data["config"]["latest"]:
 				provider = data["config"]["provider"]
 				product = data["config"]["product"]
 				currency = data["config"]["currency"]

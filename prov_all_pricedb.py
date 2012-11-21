@@ -12,13 +12,14 @@ def get_pricing(dataset, filter_provider):
             dataset[ds] = dobj[ds].getdata()
 	    
 class pricingData:
-    def __init__(self, provider, product, currency, date):
+    def __init__(self, provider, product, currency, date, latest=False):
         self.data = {
             "config": {
                 "currency":currency,
                 "provider":provider,
                 "product":product,
-                "date":date
+                "date":date,
+		"latest":latest
             },
             "regions" : []
         }
@@ -46,13 +47,13 @@ class pricingData:
 
 dobj = {}
        
-dobj["google_ce"] = pricingData("Google", "GCE", "USD", "20120831")
-dobj["google_ce"].entry("google-us", "n1-standard-1d", "linux", "", {"ondemand":{"hourly":0.145, "upfront":None}})
-dobj["google_ce"].entry("google-us", "n1-standard-2d", "linux", "", {"ondemand":{"hourly":0.29, "upfront":None}})
-dobj["google_ce"].entry("google-us", "n1-standard-4d", "linux", "", {"ondemand":{"hourly":0.58, "upfront":None}})
-dobj["google_ce"].entry("google-us", "n1-standard-8d", "linux", "", {"ondemand":{"hourly":1.16, "upfront":None}})
+dobj["google_ce"] = pricingData("Google", "GCE", "USD", "20120831", True)
+dobj["google_ce"].entry("google-us", "n1-standard-1-d", "linux", "", {"ondemand":{"hourly":0.145, "upfront":None}})
+dobj["google_ce"].entry("google-us", "n1-standard-2-d", "linux", "", {"ondemand":{"hourly":0.29, "upfront":None}})
+dobj["google_ce"].entry("google-us", "n1-standard-4-d", "linux", "", {"ondemand":{"hourly":0.58, "upfront":None}})
+dobj["google_ce"].entry("google-us", "n1-standard-8-d", "linux", "", {"ondemand":{"hourly":1.16, "upfront":None}})
 
-dobj["azure"] = pricingData("Microsoft", "Azure", "USD", "20120831")
+dobj["azure"] = pricingData("Microsoft", "Azure", "USD", "20120831", True)
 
 dobj["azure"].entry("ms-preview", "Extra Small", "mswin", "", {"ondemand":{"hourly":0.0133, "upfront":None}} ) 
 dobj["azure"].entry("ms-preview", "Small",       "mswin", "", {"ondemand":{"hourly":0.08, "upfront":None}} ) 
@@ -78,7 +79,7 @@ dobj["azure"].entry("ms-ga", "Medium",           "linux", "", {"ondemand":{"hour
 dobj["azure"].entry("ms-ga", "Large",            "linux", "", {"ondemand":{"hourly":0.34, "upfront":None}} ) 
 dobj["azure"].entry("ms-ga", "Extra Large",      "linux", "", {"ondemand":{"hourly":0.68, "upfront":None}} ) 
 
-dobj["ibm_eur"] = pricingData("IBM", "SmartCloud", "EUR", "20120831")
+dobj["ibm_eur"] = pricingData("IBM", "SmartCloud", "EUR", "20120831", True)
 
 dobj["ibm_eur"].entry("ibm", "Copper 32", "rhel",  "", {"6month":{"hourly":0.069, "upfront":1440}, "12month":{"hourly":0.069, "upfront":1010}} )
 dobj["ibm_eur"].entry("ibm", "Copper 32", "sles",  "", {"6month":{"hourly":0.046, "upfront":1440}, "12month":{"hourly":0.046, "upfront":1010}} )
@@ -170,7 +171,7 @@ dobj["ibm_eur"].entry("ibm", "Platinum 64", "sles",    "", {"ondemand":{"hourly"
 dobj["ibm_eur"].entry("ibm", "Platinum 64", "mswin",   "", {"ondemand":{"hourly":1.550, "upfront":None}} )
 dobj["ibm_eur"].entry("ibm", "Platinum 64", "linux",   "", {"ondemand":{"hourly":1.067, "upfront":None}} )
 
-dobj["ibm_usd"] = pricingData("IBM", "SmartCloud", "USD", "20120831")
+dobj["ibm_usd"] = pricingData("IBM", "SmartCloud", "USD", "20120831", True)
 
 dobj["ibm_usd"].entry("ibm", "Copper 32", "rhel",  "", {"6month":{"hourly":0.089, "upfront":1850}, "12month":{"hourly":0.089, "upfront":1300}} )
 dobj["ibm_usd"].entry("ibm", "Copper 32", "sles",  "", {"6month":{"hourly":0.059, "upfront":1850}, "12month":{"hourly":0.059, "upfront":1300}} )
@@ -262,7 +263,7 @@ dobj["ibm_usd"].entry("ibm", "Platinum 64", "sles",    "", {"ondemand":{"hourly"
 dobj["ibm_usd"].entry("ibm", "Platinum 64", "mswin",   "", {"ondemand":{"hourly":1.990, "upfront":None}} )
 dobj["ibm_usd"].entry("ibm", "Platinum 64", "linux",   "", {"ondemand":{"hourly":1.370, "upfront":None}} )
 
-dobj["gigas"] = pricingData("Gigas", "Cloud DC", "EUR", "20120831")
+dobj["gigas"] = pricingData("Gigas", "Cloud DC", "EUR", "20120831", True)
 
 dobj["gigas"].entry("mad-interxion", "DC 1 giga",  "", "", {"1month":{"hourly":0.0, "upfront":59}} )
 dobj["gigas"].entry("mad-interxion", "DC 2 gigas", "", "", {"1month":{"hourly":0.0, "upfront":99}} )

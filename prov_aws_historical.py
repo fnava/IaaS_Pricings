@@ -3,13 +3,14 @@ import locale
 locale.setlocale(locale.LC_ALL,"C")
 
 class pricingData:
-    def __init__(self, provider, product, currency, date):
+    def __init__(self, provider, product, currency, date, latest=False):
         self.data = {
             "config": {
                 "currency":currency,
                 "provider":provider,
                 "product":product,
-                "date":date
+                "date":date,
+		"latest":latest
             },
             "regions" : []
         }
@@ -50,12 +51,14 @@ locations_keys=[
 
 DATASETS = []
 dobj = {}
+latest_date = "20121101"
 
 def get_pricing(dataset, filter_region=None, filter_instance_type=None, filter_os_type=None, filter_provider=None):
     for row in reader:
         #print row
         if row[date_key] not in dobj:
-            dobj[row[date_key]] = pricingData("Amazon", "AWS", "USD", row[date_key])
+	    latest = row[date_key] == latest_date
+            dobj[row[date_key]] = pricingData("Amazon", "AWS", "USD", row[date_key], latest)
             DATASETS.append(row[date_key])
         for loc in locations_keys:
             #print row
