@@ -9,7 +9,8 @@ DATASETS = [
 REGIONS = [
 	"google-us",
 	"ms-preview",
-	"ms-ga"
+	"ms-ga",
+	"Madrid"
 ]
 
 def get_pricing(dataset, filter_provider):

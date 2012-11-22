@@ -31,7 +31,7 @@ except ImportError:
 		
 import locale
 
-import prov_all_pricedb
+import prov_all_pricedb, prov_all_historical
 #import prov_aws_pricedb
 from prov_aws_pricedb import EC2_INSTANCE_TYPES, EC2_OS_TYPES, EC2_REGIONS
 import prov_aws_historical
@@ -40,13 +40,18 @@ DATASETS = prov_all_pricedb.DATASETS[:]
 #DATASETS+= prov_aws_pricedb.DATASETS[:]
 DATASETS+= prov_aws_historical.DATASETS[:]
 
-REGIONS = prov_all_pricedb.REGIONS[:]
+REGIONS = [
+	"us-east1-a","us-central1-a","us-central2-a",
+	"London","Paris","Frankfurt","Madrid",
+	"ms-preview","ms-ga"
+]
 REGIONS+= EC2_REGIONS[:]
 
 PROVIDERS = [
 	"Amazon",
 	"IBM",
 	"Google",
+	"COLT",
 	"Gigas",
 	"Microsoft"
 ]
@@ -91,13 +96,14 @@ if __name__ == "__main__":
 		except ImportError:
 			print "ERROR: Please install 'prettytable' using pip:    pip install prettytable"
 
-	dataset = {}
-	prov_all_pricedb.get_pricing(dataset, args.filter_provider)
+	dataset = []
+	prov_all_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
+	#prov_all_pricedb.get_pricing(dataset, args.filter_provider)
 	#prov_aws_pricedb.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider, args.filter_reserve)
-	prov_aws_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
+	#prov_aws_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
 
 	if args.format == "json":
-		for ds,data in dataset.items():
+		for data in dataset:
 			print json.dumps(data, sort_keys=True, indent=4)
 
 	elif args.format == "table":
@@ -114,7 +120,7 @@ if __name__ == "__main__":
 			x.align["price"] = "l"
 			x.align["upfront"] = "l"
 		
-		for ds,data in dataset.items():
+		for data in dataset:
 			provider = data["config"]["provider"]
 			product = data["config"]["product"]
 			currency = data["config"]["currency"]
@@ -143,7 +149,7 @@ if __name__ == "__main__":
 	elif args.format == "csv":
 		locale.setlocale(locale.LC_ALL,"es_ES")
 		print "date;provider;product;region;type;os;utilization;term;price;upfront;currency"
-		for ds,data in dataset.items():
+		for data in dataset:
 		    provider = data["config"]["provider"]
 		    product = data["config"]["product"]
 		    currency = data["config"]["currency"]
@@ -169,7 +175,7 @@ if __name__ == "__main__":
 									currency
 									)
 	elif args.format == "awsgraph":
-		from prov_aws_features import *
+		from prov_all_features import *
 		locale.setlocale(locale.LC_ALL,"C")
 		print """<!--
 You are free to copy and use this sample in accordance with the terms of the
@@ -202,7 +208,7 @@ var data = new google.visualization.DataTable();
 			]:
 			print "data.addColumn('%s', '%s');" % (h, t)
 		print "data.addRows(["
-		for ds,data in dataset.items():
+		for data in dataset:
 			provider = data["config"]["provider"]
 			product = data["config"]["product"]
 			currency = data["config"]["currency"]
@@ -246,7 +252,7 @@ google.setOnLoadCallback(drawVisualization);
 </html>
 """
 	elif args.format == "scatter3d":
-		from prov_aws_features import *
+		from prov_all_features import *
 		locale.setlocale(locale.LC_ALL,"C")
 		print """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- saved from url=(0042)http://www.canvasxpress.org/scatter3d.html -->
@@ -291,7 +297,7 @@ google.setOnLoadCallback(drawVisualization);
 				"Product":[]	
 				},
 		}
-		for ds,data in dataset.items():
+		for data in dataset:
 			date = data["config"]["date"]	
 			if data["config"]["latest"]:
 				provider = data["config"]["provider"]
@@ -308,7 +314,7 @@ google.setOnLoadCallback(drawVisualization);
 									datal = [
 										features[it["type"]][mem_key],
 										features[it["type"]][cpu_key],
-										features[it["type"]][sto_key]/100,
+										1+features[it["type"]][sto_key]/100,
 										hourly
 										]
 									cx["y"]["data"].append(datal)
@@ -322,6 +328,7 @@ google.setOnLoadCallback(drawVisualization);
         "xAxis": ["Mem (GB)"],
 	"yAxis": ["Price"],
 	"zAxis": ["CPU (GHz)"],
+	"sizeBy": "Storage (100xGB)",
 	"colorBy" : "Provider",
         "transformType": "log2",
         "scatterType": false

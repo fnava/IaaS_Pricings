@@ -7,8 +7,8 @@ python iaaspricing.py \
 -f awsgraph > graph_aws_ondemand.html
 
 python iaaspricing.py \
---filter-provider Google Amazon Microsoft \
+--filter-provider Amazon Google Microsoft COLT \
 --filter-reserve ondemand \
 --filter-os linux \
---filter-region us-east-1 ms-preview google-us \
+--filter-region us-east-1 us-east1-a ms-preview Madrid \
 -f scatter3d > graph_aws_scatter3d.html

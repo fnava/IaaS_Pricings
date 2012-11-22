@@ -1,6 +1,6 @@
-Keyword;Provider;Product;Descripcion;Mem (GB);vCPU;ECU/GECU;CPU (GHz);bits;Storage (GB);I/O Perf;EBS-Optimized (Mbps);Max Number Of Persistent Disks (PDs);Additional Ephemeral Disk Size (GB)
-Extra Small;Microsoft;Azure VM;;0,768;;;1;;0;N/A;;;
-Small;Microsoft;Azure VM;;1,75;1;;1,6;;0;N/A;;;
-Medium;Microsoft;Azure VM;;3,5;2;;3,2;;0;N/A;;;
-Large;Microsoft;Azure VM;;7;4;;6,4;;0;N/A;;;
-Extra Large;Microsoft;Azure VM;;14;8;;12.8;;0;N/A;;;
+apiname;Provider;Product;Descripcion;Mem (GB);vCPU;ECU/GECU;CPU (GHz);bits;Storage (GB);I/O Perf;EBS-Optimized (Mbps);Max Number Of Persistent Disks (PDs);Additional Ephemeral Disk Size (GB)
+Extra Small;Microsoft;Azure VM;;0.768;;;1;;1;N/A;;;
+Small;Microsoft;Azure VM;;1.75;1;;1.6;;1;N/A;;;
+Medium;Microsoft;Azure VM;;3.5;2;;3.2;;1;N/A;;;
+Large;Microsoft;Azure VM;;7;4;;6.4;;1;N/A;;;
+Extra Large;Microsoft;Azure VM;;14;8;;12.8;;1;N/A;;;

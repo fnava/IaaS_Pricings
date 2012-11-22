@@ -1,12 +1,12 @@
 import csv
 import locale
-locale.setlocale(locale.LC_ALL,"es_ES")
+locale.setlocale(locale.LC_ALL,"C")
 
 features = {}
 
-for provider in ["amazon","google","microsoft"]:
+for provider in ["amazon","google","microsoft","colt"]:
     reader = csv.DictReader(open('provs/%s/features.csv' % provider), delimiter=';')
-    keyword_key="Keyword"
+    keyword_key="apiname"
     mem_key = "Mem (GB)"
     cpu_key = "CPU (GHz)"
     sto_key = "Storage (GB)"

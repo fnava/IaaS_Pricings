@@ -1,0 +1,11 @@
+apiname;Descripcion;Provider;Product;Mem (GB) base;Mem (GB);vCPU;ECU/GECU;CPU (GHz) base;CPU (GHz);bits;Storage (GB);I/O Perf;EBS-Optimized (Mbps)
+essential-6-4;Essential Virtual Data Center;COLT;vCloud;6;2.4;;;4;1;;1;;
+essential-30-10;Essential Virtual Data Center;COLT;vCloud;30;12;;;10;2.5;;1;;
+essential-100-50;Essential Virtual Data Center;COLT;vCloud;100;40;;;50;12.5;;1;;
+essential-500-100;Essential Virtual Data Center;COLT;vCloud;500;200;;;100;25;;1;;
+essential-1000-500;Essential Virtual Data Center;COLT;vCloud;2000;800;;;500;125;;1;;
+enterprise-6-4;Enterprise Virtual Data Center;COLT;vCloud;6;4.5;;;4;3;;1;;
+enterprise-30-10;Enterprise Virtual Data Center;COLT;vCloud;30;22.5;;;10;7.5;;1;;
+enterprise-100-50;Enterprise Virtual Data Center;COLT;vCloud;100;75;;;50;37.5;;1;;
+enterprise-500-100;Enterprise Virtual Data Center;COLT;vCloud;500;375;;;100;75;;1;;
+enterprise-1000-500;Enterprise Virtual Data Center;COLT;vCloud;2000;1500;;;500;375;;1;;
