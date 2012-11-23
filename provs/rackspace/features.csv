@@ -1,0 +1,12 @@
+apiname;Descripcion;Provider;Product;Mem (GB);vCPU;"vCPU
+burstable";ECU/GECU;CPU (GHz);bits;Storage (GB);I/O Perf;EBS-Optimized (Mbps);Max Number Of Persistent Disks (PDs);Max Total PD size (GB)
+Extra Small 0.5GB;Extra Small 0.5 GB (1 vCPU);Joyent;Cloud;0.5;1;1;;6;;15;;;16;128
+Small 1GB;Small 1GB (1 vCPU);Joyent;Cloud;1;1;4;;6;;30;;;16;256
+Medium 2GB;Medium 2GB (2 vCPU);Joyent;Cloud;2;2;6;;12;;60;;;16;512
+Medium 4GB;Medium 4GB (4 vCPU);Joyent;Cloud;4;4;8;;24;;120;;;16;1024
+Large 8GB;Large 8GB (8 vCPU);Joyent;Cloud;8;8;12;;48;;240;;;;
+Large 16GB;Large 16GB (12 vCPU);Joyent;Cloud;16;12;14;;72;;480;;;;
+XL 32GB;XL 32GB (16 vCPU);Joyent;Cloud;32;16;18;;96;;760;;;;
+XXL 48GB;XXL 48GB (16 vCPU);Joyent;Cloud;48;16;20;;96;;1000;;;;
+XXXL 64GB;XXXL 64GB (16 vCPU);Joyent;Cloud;64;16;22;;96;;1500;;;;
+Dedicated 80GB;Dedicated 80GB (16 vCPU);Joyent;Cloud;80;16;24;;96;;2000;;;;

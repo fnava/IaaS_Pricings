@@ -35,7 +35,7 @@ class pricingData:
         return self.data
 
 
-DATASOURCES = {
+providersDataSources = {
     "aws":{"pricings":"provs/amazon/pricings.csv",
 	   "keyword_key":"apiname",
 	   "date_key":"Date",
@@ -64,7 +64,7 @@ DATASOURCES = {
 	    "provider":"Google",
 	    "product":"GCE"
 	   },
-"microsoft":{"pricings":"provs/microsoft/pricings.csv",
+    "microsoft":{"pricings":"provs/microsoft/pricings.csv",
 	   "keyword_key":"apiname",
 	   "date_key":"Date",
 	   "latest_date":"20121122",
@@ -87,34 +87,57 @@ DATASOURCES = {
 		],
 	    "provider":"COLT",
 	    "product":"vCloud"
+	    },
+"gigas":{"pricings":"provs/gigas/pricings.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121121",
+	    "location_keys":[
+		"Interxion-Madrid",
+		],
+	    "provider":"Gigas",
+	    "product":"Cloud Datacenter"
+	    },
+"joyent":{"pricings":"provs/joyent/pricings.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121123",
+	    "location_keys":[
+		"Joyent",
+		],
+	    "provider":"Joyent",
+	    "product":"Cloud"
 	    }
 }
 
 features = {}
 
-
 def get_pricing(dataset, filter_region=None, filter_instance_type=None, filter_os_type=None, filter_provider=None):
-    for provider, ds in DATASOURCES.items():
-        DATASETS = {}
-        reader = csv.DictReader(open(ds["pricings"]), delimiter=';')
+    for providerKey, providerParam in providersDataSources.items():
+	providerDataset = {}
+	reader = csv.DictReader(open(providerParam["pricings"]), delimiter=';')
 	for row in reader:
 	    #print row
-	    date = row[ds["date_key"]] 
-	    if date not in DATASETS:
-		latest = ( date == ds["latest_date"] )
-		DATASETS[date] = pricingData(ds["provider"], ds["product"], "USD", date, latest)
-	    for loc in ds["location_keys"]:
+	    date = row[providerParam["date_key"]] 
+	    currency = row["currency"]
+	    datasetKey = date + currency
+	    if datasetKey not in providerDataset:
+		latest = ( date == providerParam["latest_date"] )
+		name = providerParam["provider"]
+		product = providerParam["product"]
+		providerDataset[datasetKey] = pricingData(name, product, currency, date, latest)
+	    for loc in providerParam["location_keys"]:
 		#print row
 		if filter_region is None or loc in filter_region:
-		    keyword = row[ds["keyword_key"]]
+		    keyword = row[providerParam["keyword_key"]]
 		    if filter_instance_type is None or filter_instance_type == keyword:
 			if filter_os_type is None or filter_os_type == row["OS"]:
-			    #print row[date_key]
 			    if row[loc] is not None and row[loc].strip() != "":
-				DATASETS[date].entry(loc, keyword.strip(), row["OS"].strip(), "", {"ondemand":{"hourly":locale.atof(row[loc]), "upfront":None}})
-    
-	#print DATASETS
-	for date,ds in DATASETS.items():
-	    if filter_provider is None or ds.data["config"]["provider"] in filter_provider:
-		    dataset.append(ds.getdata())
+				providerDataset[datasetKey].entry(loc, keyword.strip(), row["OS"].strip(), "", {"ondemand":{"hourly":locale.atof(row[loc]), "upfront":None}})
+                                #print providerDataset[date]
+
+	#print providerDataset
+	for date,providerParam in providerDataset.items():
+	    if filter_provider is None or providerParam.data["config"]["provider"] in filter_provider:
+		    dataset.append(providerParam.getdata())
 		    #print dataset

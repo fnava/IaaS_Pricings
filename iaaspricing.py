@@ -43,7 +43,9 @@ DATASETS+= prov_aws_historical.DATASETS[:]
 REGIONS = [
 	"us-east1-a","us-central1-a","us-central2-a",
 	"London","Paris","Frankfurt","Madrid",
-	"ms-preview","ms-ga"
+	"ms-preview","ms-ga",
+	"Interxion-Madrid",
+	"Joyent"
 ]
 REGIONS+= EC2_REGIONS[:]
 
@@ -53,7 +55,8 @@ PROVIDERS = [
 	"Google",
 	"COLT",
 	"Gigas",
-	"Microsoft"
+	"Microsoft",
+	"Joyent"
 ]
 
 RESERVATION = [
@@ -65,6 +68,8 @@ CURRENCIES = [
 	"USD",
 	"EUR"
 	]
+	
+ONEUSDINEUR =  0.7758
 	
 if __name__ == "__main__":
 	def none_as_string(v, currency="EUR"):
@@ -98,9 +103,7 @@ if __name__ == "__main__":
 
 	dataset = []
 	prov_all_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
-	#prov_all_pricedb.get_pricing(dataset, args.filter_provider)
-	#prov_aws_pricedb.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider, args.filter_reserve)
-	#prov_aws_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
+	#print dataset
 
 	if args.format == "json":
 		for data in dataset:
@@ -310,12 +313,16 @@ google.setOnLoadCallback(drawVisualization);
 							for term in it["prices"]:
 								hourly = it["prices"][term]["hourly"]
 								upfront = it["prices"][term]["upfront"]
+								if currency == "EUR":
+									price = hourly / ONEUSDINEUR
+								else:
+									price = hourly 
 								if hourly is not None or upfront is not None:							
 									datal = [
 										features[it["type"]][mem_key],
 										features[it["type"]][cpu_key],
 										1+features[it["type"]][sto_key]/100,
-										hourly
+										price
 										]
 									cx["y"]["data"].append(datal)
 									cx["y"]["vars"].append(it["type"])

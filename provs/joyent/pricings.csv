@@ -1,0 +1,11 @@
+Date;currency;OS;apiname;Joyent
+20121123;USD;linux;Extra Small 0.5GB;0.03
+20121123;USD;linux;Small 1GB;0.085
+20121123;USD;linux;Medium 2GB;0.17
+20121123;USD;linux;Medium 4GB;0.24
+20121123;USD;linux;Large 8GB;0.36
+20121123;USD;linux;Large 16GB;0.64
+20121123;USD;linux;XL 32GB;1.12
+20121123;USD;linux;XXL 48GB;1.68
+20121123;USD;linux;XXXL 64GB;2.24
+20121123;USD;linux;Dedicated 80GB;2.8

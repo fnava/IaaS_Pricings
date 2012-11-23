@@ -4,7 +4,7 @@ locale.setlocale(locale.LC_ALL,"C")
 
 features = {}
 
-for provider in ["amazon","google","microsoft","colt"]:
+for provider in ["amazon","google","microsoft","colt","gigas","joyent"]:
     reader = csv.DictReader(open('provs/%s/features.csv' % provider), delimiter=';')
     keyword_key="apiname"
     mem_key = "Mem (GB)"
@@ -12,6 +12,7 @@ for provider in ["amazon","google","microsoft","colt"]:
     sto_key = "Storage (GB)"
     iop_key = "I/O Perf"
     for row in reader:
+        #print row
         features[row[keyword_key]] = {}
         for k in mem_key, cpu_key, sto_key:
             features[row[keyword_key]][k] = locale.atof(row[k])

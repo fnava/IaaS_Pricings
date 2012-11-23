@@ -1,0 +1,11 @@
+apiname;Descripcion;Provider;Product;Mem (GB);vCPU;ECU/GECU;CPU (GHz);bits;Storage (GB);I/O Perf;EBS-Optimized (Mbps)
+DC 4 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;4;8;3.15;25.2;;150;;
+DC 6 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;6;12;2.8;33.6;;200;;
+DC 8 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;8;16;2.625;42;;250;;
+DC 12 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;12;24;2.1;50.4;;350;;
+DC 16 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;16;30;2.1;63;;500;;
+DC 24 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;24;32;2.1;67.2;;550;;
+DC 32 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;32;36;2.083333333;75;;600;;
+DC 48 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;48;40;2.1;84;;650;;
+DC 64 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;64;42;2.1;88.2;;700;;
+DC 96 gigas;Cloud Datacenter;Gigas;Cloud Datacenter;96;48;2.083333333;100;;1000;;
