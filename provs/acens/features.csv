@@ -1,0 +1,16 @@
+apiname;Descripcion;Provider;Product;Mem (GB);vCPU;ECU/GECU;CPU (GHz);srvs;Storage (GB);I/O Perf;EBS-Optimized (Mbps);Max Number Of Persistent Disks (PDs);Max Total PD size (GB)
+XS;eXtra Small(XS);Acens;Instant Servers;1;1;;2;;30;;;;
+S;Small (S);Acens;Instant Servers;2;1;;2;;60;;;;
+M;Medium (M);Acens;Instant Servers;4;1;;2;;120;;;;
+L;Large (L);Acens;Instant Servers;8;2;;4;;240;;;;
+XL;eXtra Large(XL);Acens;Instant Servers;16;3;;6;;480;;;;
+cs1;cloud server 1;;;4;8;;16;;150;;;;
+cs2;cloud server 2;;;6;12;;24;;200;;;;
+cs3;cloud server 3;;;8;16;;32;;250;;;;
+cs4;cloud server 4;;;12;24;;48;;350;;;;
+cs5;cloud server 5;;;16;30;;60;;500;;;;
+cs6;cloud server 6;;;24;32;;64;;550;;;;
+cs7;cloud server 7;;;32;36;;72;;600;;;;
+cs8;cloud server 8;;;48;40;;80;;650;;;;
+cs9;cloud server 9;;;64;42;;84;;700;;;;
+cs10;cloud server 10;;;96;48;;96;;1000;;;;

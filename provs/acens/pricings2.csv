@@ -1,0 +1,11 @@
+Date;currency;OS;apiname;acens;vcpu;vram;sto;srvs
+20121125;EUR;linux;cs1;0.235;4;8;150;1
+20121125;EUR;linux;cs2;0.34;6;12;200;1
+20121125;EUR;linux;cs3;0.445;8;16;250;1
+20121125;EUR;linux;cs4;0.655;12;24;350;1
+20121125;EUR;linux;cs5;0.87;16;30;500;1
+20121125;EUR;linux;cs6;1.075;24;32;550;1
+20121125;EUR;linux;cs7;1.3;32;36;600;1
+20121125;EUR;linux;cs8;1.685;48;40;650;1
+20121125;EUR;linux;cs9;2.05;64;42;700;1
+20121125;EUR;linux;cs10;2.9;96;48;1000;1

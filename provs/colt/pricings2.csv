@@ -1,0 +1,11 @@
+Date;currency;OS;apiname;London;Paris;Frankfurt;Madrid;mem;cpu;sto (SATA)
+20121115;EUR;linux;enterprise1;1.035;1.035;1.035;1.035;4;25.2;150
+20121115;EUR;linux;enterprise2;1.403;1.403;1.403;1.403;6;33.6;200
+20121115;EUR;linux;enterprise3;1.771;1.771;1.771;1.771;8;42;250
+20121115;EUR;linux;enterprise4;2.215;2.215;2.215;2.215;12;50.4;350
+20121115;EUR;linux;enterprise5;2.813;2.813;2.813;2.813;16;63;500
+20121115;EUR;linux;enterprise6;3.243;3.243;3.243;3.243;24;67.2;550
+20121115;EUR;linux;enterprise7;3.799;3.799;3.799;3.799;32;75;600
+20121115;EUR;linux;enterprise8;4.674;4.674;4.674;4.674;48;84;650
+20121115;EUR;linux;enterprise9;5.382;5.382;5.382;5.382;64;88.2;700
+20121115;EUR;linux;enterprise10;6.944;6.944;6.944;6.944;96;100;1000

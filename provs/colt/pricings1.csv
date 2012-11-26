@@ -1,0 +1,11 @@
+Date;currency;OS;apiname;London;Paris;Frankfurt;Madrid;mem;cpu;sto (SATA)
+20121115;EUR;linux;essential1;0.402;0.402;0.402;0.402;4;25.2;150
+20121115;EUR;linux;essential2;0.549;0.549;0.549;0.549;6;33.6;200
+20121115;EUR;linux;essential3;0.697;0.697;0.697;0.697;8;42;250
+20121115;EUR;linux;essential4;0.894;0.894;0.894;0.894;12;50.4;350
+20121115;EUR;linux;essential5;1.147;1.147;1.147;1.147;16;63;500
+20121115;EUR;linux;essential6;1.370;1.370;1.370;1.370;24;67.2;550
+20121115;EUR;linux;essential7;1.635;1.635;1.635;1.635;32;75;600
+20121115;EUR;linux;essential8;2.082;2.082;2.082;2.082;48;84;650
+20121115;EUR;linux;essential9;2.472;2.472;2.472;2.472;64;88.2;700
+20121115;EUR;linux;essential10;3.319;3.319;3.319;3.319;96;100;1000

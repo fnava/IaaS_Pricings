@@ -45,7 +45,8 @@ REGIONS = [
 	"London","Paris","Frankfurt","Madrid",
 	"ms-preview","ms-ga",
 	"Interxion-Madrid",
-	"Joyent"
+	"Joyent",
+	"acens"
 ]
 REGIONS+= EC2_REGIONS[:]
 
@@ -56,7 +57,8 @@ PROVIDERS = [
 	"COLT",
 	"Gigas",
 	"Microsoft",
-	"Joyent"
+	"Joyent",
+	"Acens"
 ]
 
 RESERVATION = [
@@ -291,7 +293,7 @@ google.setOnLoadCallback(drawVisualization);
 		cx = {
 			"y":{
 				"vars":[],
-				"smps":["Mem (GB)", "CPU (GHz)", "Storage (100xGB)", "Price"],
+				"smps":["Mem (GB)", "CPU (GHz)", "Storage (100xGB)", "Price (USD/h)"],
 				"desc":["intensity",],
 				"data":[]
 			},
@@ -313,15 +315,18 @@ google.setOnLoadCallback(drawVisualization);
 							for term in it["prices"]:
 								hourly = it["prices"][term]["hourly"]
 								upfront = it["prices"][term]["upfront"]
-								if currency == "EUR":
-									price = hourly / ONEUSDINEUR
+								price = hourly
+								if args.filter_currency == "EUR":
+									if currency == "USD":
+										price = hourly * ONEUSDINEUR
 								else:
-									price = hourly 
+									if currency == "EUR":
+										price = hourly / ONEUSDINEUR
 								if hourly is not None or upfront is not None:							
 									datal = [
 										features[it["type"]][mem_key],
 										features[it["type"]][cpu_key],
-										1+features[it["type"]][sto_key]/100,
+										1000+100*features[it["type"]][sto_key],
 										price
 										]
 									cx["y"]["data"].append(datal)
@@ -332,11 +337,12 @@ google.setOnLoadCallback(drawVisualization);
 	print """,
         {
         "graphType": "Scatter3D",
-        "xAxis": ["Mem (GB)"],
-	"yAxis": ["Price"],
-	"zAxis": ["CPU (GHz)"],
+        "zAxis": ["Mem (GB)"],
+	"yAxis": ["Price (USD/h)"],
+	"xAxis": ["CPU (GHz)"],
 	"sizeBy": "Storage (100xGB)",
 	"colorBy" : "Provider",
+	"shapeBy" : "Product",
         "transformType": "log2",
         "scatterType": false
 	}
@@ -347,7 +353,7 @@ google.setOnLoadCallback(drawVisualization);
 
 <body onload="showDemo();" style="cursor: default;">
 <div>
-<canvas id="canvas" width="800" height="600"></canvas>
+<canvas id="canvas" width="1000" height="700"></canvas>
 </div>
 </body>
 

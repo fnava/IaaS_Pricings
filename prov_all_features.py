@@ -4,7 +4,7 @@ locale.setlocale(locale.LC_ALL,"C")
 
 features = {}
 
-for provider in ["amazon","google","microsoft","colt","gigas","joyent"]:
+for provider in ["amazon","google","microsoft","colt","gigas","acens","joyent"]:
     reader = csv.DictReader(open('provs/%s/features.csv' % provider), delimiter=';')
     keyword_key="apiname"
     mem_key = "Mem (GB)"

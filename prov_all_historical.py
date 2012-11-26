@@ -75,7 +75,7 @@ providersDataSources = {
 	    "provider":"Microsoft",
 	    "product":"Azure VM"
 	   },
-    "colt":{"pricings":"provs/colt/pricings.csv",
+    "colt1":{"pricings":"provs/colt/pricings1.csv",
 	    "keyword_key":"apiname",
 	    "date_key":"Date",
 	    "latest_date":"20121115",
@@ -86,9 +86,22 @@ providersDataSources = {
 		"Madrid"
 		],
 	    "provider":"COLT",
-	    "product":"vCloud"
+	    "product":"vCloud Essentials"
 	    },
-"gigas":{"pricings":"provs/gigas/pricings.csv",
+    "colt2":{"pricings":"provs/colt/pricings2.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121115",
+	    "location_keys":[
+		"London",
+		"Paris",
+		"Franfurkt",
+		"Madrid"
+		],
+	    "provider":"COLT",
+	    "product":"vCloud Enterprise"
+	    },
+    "gigas":{"pricings":"provs/gigas/pricings.csv",
 	    "keyword_key":"apiname",
 	    "date_key":"Date",
 	    "latest_date":"20121121",
@@ -98,7 +111,7 @@ providersDataSources = {
 	    "provider":"Gigas",
 	    "product":"Cloud Datacenter"
 	    },
-"joyent":{"pricings":"provs/joyent/pricings.csv",
+    "joyent":{"pricings":"provs/joyent/pricings.csv",
 	    "keyword_key":"apiname",
 	    "date_key":"Date",
 	    "latest_date":"20121123",
@@ -107,7 +120,27 @@ providersDataSources = {
 		],
 	    "provider":"Joyent",
 	    "product":"Cloud"
-	    }
+	    },
+    "acens":{"pricings":"provs/acens/pricings.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121125",
+	    "location_keys":[
+		"acens",
+		],
+	    "provider":"Acens",
+	    "product":"Instant Servers"
+    },
+    "acens2":{"pricings":"provs/acens/pricings2.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121125",
+	    "location_keys":[
+		"acens",
+		],
+	    "provider":"Acens",
+	    "product":"Cloud Servers"
+    }
 }
 
 features = {}
