@@ -1,11 +1,11 @@
-Date;currency;OS;apiname;ms-preview;ms-ga
-20121122;EUR;mswin;Extra Small;0.095;0.014
-20121122;EUR;mswin;Small;0.057;0.082
-20121122;EUR;mswin;Medium;0.114;0.163
-20121122;EUR;mswin;Large;0.227;0.326
-20121122;EUR;mswin;Extra Large;0.454;0.653
-20121122;EUR;linux;Extra Small;0.095;0.014
-20121122;EUR;linux;Small;0.057;0.060
-20121122;EUR;linux;Medium;0.114;0.121
-20121122;EUR;linux;Large;0.227;0.241
-20121122;EUR;linux;Extra Large;0.454;0.482
+Date;currency;OS;apiname;ms-preview;ms-ga;ms-preview sin sto;ms-ga sin sto;sto cost;sto
+20121122;EUR;mswin;Extra Small;0.095;0.015;0.095;0.014;0.0004;1
+20121122;EUR;mswin;Small;0.100;0.125;0.0568;0.082;0.0432;110
+20121122;EUR;mswin;Medium;0.277;0.326;0.114;0.163;0.1630;415
+20121122;EUR;mswin;Large;0.565;0.664;0.227;0.326;0.3379;860
+20121122;EUR;mswin;Extra Large;1.134;1.332;0.454;0.653;0.6796;1730
+20121122;EUR;linux;Extra Small;0.095;0.015;0.095;0.014;0.0004;1
+20121122;EUR;linux;Small;0.100;0.104;0.057;0.060;0.0432;110
+20121122;EUR;linux;Medium;0.277;0.284;0.114;0.121;0.1630;415
+20121122;EUR;linux;Large;0.565;0.579;0.227;0.241;0.3379;860
+20121122;EUR;linux;Extra Large;1.134;1.162;0.454;0.482;0.6796;1730
