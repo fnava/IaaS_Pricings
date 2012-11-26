@@ -31,35 +31,36 @@ except ImportError:
 		
 import locale
 
-import prov_all_pricedb, prov_all_historical
+##import prov_all_pricedb, prov_all_historical
 #import prov_aws_pricedb
 from prov_aws_pricedb import EC2_INSTANCE_TYPES, EC2_OS_TYPES, EC2_REGIONS
-import prov_aws_historical
+##import prov_aws_historical
+from prov_all_historical import *
 
-DATASETS = prov_all_pricedb.DATASETS[:]
+##DATASETS = prov_all_pricedb.DATASETS[:]
 #DATASETS+= prov_aws_pricedb.DATASETS[:]
-DATASETS+= prov_aws_historical.DATASETS[:]
+##DATASETS+= prov_aws_historical.DATASETS[:]
 
-REGIONS = [
-	"us-east1-a","us-central1-a","us-central2-a",
-	"London","Paris","Frankfurt","Madrid",
-	"ms-preview","ms-ga",
-	"Interxion-Madrid",
-	"Joyent",
-	"acens"
-]
-REGIONS+= EC2_REGIONS[:]
+#REGIONS = [
+#	"us-east1-a","us-central1-a","us-central2-a",
+#	"London","Paris","Frankfurt","Madrid",
+#	"ms-preview","ms-ga",
+#	"Interxion-Madrid",
+#	"Joyent",
+#	"acens"
+#]
+#REGIONS+= EC2_REGIONS[:]
 
-PROVIDERS = [
-	"Amazon",
-	"IBM",
-	"Google",
-	"COLT",
-	"Gigas",
-	"Microsoft",
-	"Joyent",
-	"Acens"
-]
+#PROVIDERS = [
+#	"Amazon",
+#	"IBM",
+#	"Google",
+#	"COLT",
+#	"Gigas",
+#	"Microsoft",
+#	"Joyent",
+#	"Acens"
+#]
 
 RESERVATION = [
 	"ondemand",
@@ -93,6 +94,7 @@ if __name__ == "__main__":
 	parser.add_argument("--filter-os-type", "-fo", help="Filter results to a specific os type", choices=EC2_OS_TYPES, default=None)
 	parser.add_argument("--filter-reserve", "-fv", help="Filter results to a specific reservation", choices=RESERVATION, default=None)
 	parser.add_argument("--filter-provider", "-fp", nargs="+", help="Filter results to a specific provider", choices=PROVIDERS, default=None)
+	parser.add_argument("--filter-product", "-fd", nargs="+", help="Filter results to a specific product", choices=PRODUCTS, default=None)
 	parser.add_argument("--format", "-f", choices=["json", "table", "csv", "awsgraph", "scatter3d"], help="Output format", default="table")
 
 	args = parser.parse_args()
@@ -104,7 +106,7 @@ if __name__ == "__main__":
 			print "ERROR: Please install 'prettytable' using pip:    pip install prettytable"
 
 	dataset = []
-	prov_all_historical.get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider)
+	get_pricing(dataset, args.filter_region, args.filter_type, args.filter_os_type, args.filter_provider, args.filter_product)
 	#print dataset
 
 	if args.format == "json":
@@ -180,7 +182,6 @@ if __name__ == "__main__":
 									currency
 									)
 	elif args.format == "awsgraph":
-		from prov_all_features import *
 		locale.setlocale(locale.LC_ALL,"C")
 		print """<!--
 You are free to copy and use this sample in accordance with the terms of the
@@ -257,7 +258,6 @@ google.setOnLoadCallback(drawVisualization);
 </html>
 """
 	elif args.format == "scatter3d":
-		from prov_all_features import *
 		locale.setlocale(locale.LC_ALL,"C")
 		print """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!-- saved from url=(0042)http://www.canvasxpress.org/scatter3d.html -->
