@@ -116,9 +116,9 @@ if __name__ == "__main__":
 	elif args.format == "table":
 		x = PrettyTable()
  		try:
-			x.set_field_names(["date", "provider", "product", "region", "type", "os", "utilization", "term", "price", "upfront", "currency"])
+			x.set_field_names(["date", "provider", "product", "region", "vmemory", "vcpu", "storage", "performance", "type", "os", "utilization", "term", "price", "upfront", "currency"])
 		except AttributeError:
-			x.field_names = ["date", "provider", "product", "region", "type", "os", "utilization", "term", "price", "upfront", "currency"]
+			x.field_names = ["date", "provider", "product", "region", "vmemory", "vcpu", "storage", "performance", "type", "os", "utilization", "term", "price", "upfront", "currency"]
 
 		try:
 			x.aligns[-1] = "l"
@@ -128,51 +128,27 @@ if __name__ == "__main__":
 			x.align["upfront"] = "l"
 		
 		for data in dataset:
-			provider = data["config"]["provider"]
-			product = data["config"]["product"]
-			currency = data["config"]["currency"]
-			date = data["config"]["date"]
-			for r in data["regions"]:
-				region_name = r["region"]
-				for it in r["instanceTypes"]:
-					for term in it["prices"]:
-						hourly = it["prices"][term]["hourly"]
-						upfront = it["prices"][term]["upfront"]
-						if hourly is not None or upfront is not None:
-							x.add_row([
-								date,
-								provider,
-								product,
-								region_name,
-								it["type"],
-								it["os"],
-								it["utilization"],
-								term,
-								none_as_string(hourly),
-								none_as_string(upfront),
-								currency
-							   ])
-		print x
-	elif args.format == "csv":
-		locale.setlocale(locale.LC_ALL,"es_ES")
-		print "date;provider;product;region;type;os;utilization;term;price;upfront;currency"
-		for data in dataset:
-		    provider = data["config"]["provider"]
-		    product = data["config"]["product"]
-		    currency = data["config"]["currency"]
-		    date = data["config"]["date"]
-		    for r in data["regions"]:
-			region_name = r["region"]
-			for it in r["instanceTypes"]:
-				for term in it["prices"]:
-					hourly = it["prices"][term]["hourly"]
-					upfront = it["prices"][term]["upfront"]
-					if hourly is not None or upfront is not None:							
-						print "%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % (
+			if data["config"]["latest"]:
+				provider = data["config"]["provider"]
+				product = data["config"]["product"]
+				currency = data["config"]["currency"]
+				date = data["config"]["date"]
+				for r in data["regions"]:
+					region_name = r["region"]
+					for it in r["instanceTypes"]:
+						for term in it["prices"]:
+							hourly = it["prices"][term]["hourly"]
+							upfront = it["prices"][term]["upfront"]
+							if hourly is not None or upfront is not None:
+								x.add_row([
 									date,
 									provider,
 									product,
 									region_name,
+									none_as_string(features[it["type"]][mem_key]),
+									none_as_string(features[it["type"]][cpu_key]),
+									none_as_string(features[it["type"]][sto_key]),
+									features[it["type"]][iop_key],
 									it["type"],
 									it["os"],
 									it["utilization"],
@@ -180,7 +156,41 @@ if __name__ == "__main__":
 									none_as_string(hourly),
 									none_as_string(upfront),
 									currency
-									)
+								   ])
+		print x
+	elif args.format == "csv":
+		locale.setlocale(locale.LC_ALL,"es_ES")
+		print "date;provider;product;region;mem;cpu;sto;stoperf;type;os;utilization;term;price;upfront;currency"
+		for data in dataset:
+			if data["config"]["latest"]:
+				provider = data["config"]["provider"]
+				product = data["config"]["product"]
+				currency = data["config"]["currency"]
+				date = data["config"]["date"]
+				for r in data["regions"]:
+				    region_name = r["region"]
+				    for it in r["instanceTypes"]:
+					    for term in it["prices"]:
+						    hourly = it["prices"][term]["hourly"]
+						    upfront = it["prices"][term]["upfront"]
+						    if hourly is not None or upfront is not None:							
+							    print "%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % (
+										date,
+										provider,
+										product,
+										region_name,
+										none_as_string(features[it["type"]][mem_key]),
+										none_as_string(features[it["type"]][cpu_key]),
+										none_as_string(features[it["type"]][sto_key]),
+										features[it["type"]][iop_key],
+										it["type"],
+										it["os"],
+										it["utilization"],
+										term,
+										none_as_string(hourly),
+										none_as_string(upfront),
+                                                                                    currency
+										    )
 	elif args.format == "awsgraph":
 		locale.setlocale(locale.LC_ALL,"C")
 		print """<!--
@@ -215,10 +225,10 @@ var data = new google.visualization.DataTable();
 			print "data.addColumn('%s', '%s');" % (h, t)
 		print "data.addRows(["
 		for data in dataset:
+			date = data["config"]["date"]	
 			provider = data["config"]["provider"]
 			product = data["config"]["product"]
 			currency = data["config"]["currency"]
-			date = data["config"]["date"]	
 			for r in data["regions"]:
 				region_name = r["region"]
 				for it in r["instanceTypes"]:
@@ -334,28 +344,28 @@ google.setOnLoadCallback(drawVisualization);
 									cx["z"]["Product"].append(product)
 									cx["z"]["Provider"].append(provider)
 		print json.dumps(cx, sort_keys=True, indent=4),
-	print """,
-        {
-        "graphType": "Scatter3D",
-        "zAxis": ["Mem (GB)"],
-	"yAxis": ["Price (USD/h)"],
-	"xAxis": ["CPU (GHz)"],
-	"sizeBy": "Storage (100xGB)",
-	"colorBy" : "Provider",
-	"shapeBy" : "Product",
-        "transformType": "log2",
-        "scatterType": false
-	}
-        )
-    }
-</script>
-</head>
-
-<body onload="showDemo();" style="cursor: default;">
-<div>
-<canvas id="canvas" width="1000" height="700"></canvas>
-</div>
-</body>
-
-</html>
-"""
+		print """,
+		{
+		"graphType": "Scatter3D",
+		"zAxis": ["Mem (GB)"],
+		"yAxis": ["Price (USD/h)"],
+		"xAxis": ["CPU (GHz)"],
+		"sizeBy": "Storage (100xGB)",
+		"colorBy" : "Provider",
+		"shapeBy" : "Product",
+		"transformType": "log2",
+		"scatterType": false
+		}
+		)
+	    }
+	</script>
+	</head>
+	
+	<body onload="showDemo();" style="cursor: default;">
+	<div>
+	<canvas id="canvas" width="1000" height="700"></canvas>
+	</div>
+	</body>
+	
+	</html>
+	"""
