@@ -83,7 +83,7 @@ providersDataSources = {
 	    "location_keys":[
 		"London",
 		"Paris",
-		"Franfurkt",
+		"Frankfurt",
 		"Madrid"
 		],
 	    "provider":"COLT",
@@ -96,7 +96,7 @@ providersDataSources = {
 	    "location_keys":[
 		"London",
 		"Paris",
-		"Franfurkt",
+		"Frankfurt",
 		"Madrid"
 		],
 	    "provider":"COLT",
@@ -140,7 +140,17 @@ providersDataSources = {
 		"acens",
 		],
 	    "provider":"Acens",
-	    "product":"Cloud Servers"
+	    "product":"Cloud Servers",
+    },
+"terremark":{"pricings":"provs/terremark/pricings.csv",
+	    "keyword_key":"apiname",
+	    "date_key":"Date",
+	    "latest_date":"20121129",
+	    "location_keys":[
+		"price",
+		],
+	    "provider":"Terremark",
+	    "product":"vCloud Express"
     }
 }
 
